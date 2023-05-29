@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{%block title%}MyClub{%endblock%}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active ms-auto">الاشتراك </li>
+{%endblock%}
+
+{% block content %}
+<div  class="contmain">
+
+{% if known %}
+<h5 style="display: flex; direction:rtl">مرحبا بكم </h5>
+<hr>
+<div style="display: flex; direction:rtl" class="membershib"> نوع الاشتراك لديكم : {{membershib}}</div>
+
+{% else %}
+
+<!-- <div style="display:block" class="membershib"></div> -->
+<div  class="">
+    <h3 style="display: flex; direction:rtl">اطلب اشتراك جديد </h3>
+    <form style="display: flex; direction:rtl" method="post">
+        {% csrf_token %}
+        <select name="opt" class="form-select" aria-label="Default select example">
+            <option  value="y">سنوي</option>
+            <option value="m">شهري</option>
+        </select>
+        <input type="submit" value="اشتراك">
+    </form>
+</div>
+{% endif %}
+</div>
+{% if messages %}
+<div style="display: flex; direction:rtl" class="alert alert-primary" role="alert">
+    <!-- <ul class="messages"> -->
+        {% for message in messages %}
+        <h5 {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h5>
+        {% endfor %}
+    <!-- </ul> -->
+</div>
+    {% endif %}
+{%endblock%}
